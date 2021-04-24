@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Path } from '../../../config';
 import { OwlCarouselConfig, CarouselNavigation, SlickConfig, ProductLightbox, CountDown, Rating, ProgressBar } from '../../../funtions';
 import { ProductsService } from '../../../services/products.service';
+import { SalesService } from '../../../services/sales.service';
+
 
 declare var jQuery: any;
 declare var $: any;
@@ -21,7 +23,7 @@ export class HomeHotTodayComponent implements OnInit {
   render: Boolean = true;
   cargando: Boolean = false;
 
-  constructor(private productsService: ProductsService) { }
+  constructor(private productsService: ProductsService, private salesService: SalesService) { }
 
   ngOnInit(): void {
 
@@ -84,6 +86,85 @@ export class HomeHotTodayComponent implements OnInit {
         }
 
       })
+
+    /*=================================
+    Tomamos la data de las ventas
+    ====================================*/
+
+    let getSales = [];
+
+    this.salesService.getData()
+      .subscribe(resp => {
+        //   console.log("resp", resp);
+
+        /*===================================================================
+       Recorremos cada venta separar los productos y las cantidades
+       ======================================================================*/
+
+        let i;
+
+        for (i in resp) {
+
+          getSales.push({
+            "product": resp[i].product,
+            "quantity": resp[i].quantity,
+
+          })
+
+        }
+
+        /*===================================================================
+      Ordenamos de mayor a menor el arrelo de objetos
+      ======================================================================*/
+
+        getSales.sort(function (a, b) {
+          return (b.quantity - a.quantity);
+        })
+
+        /*===================================================================
+          Sacamos del arreglo los productos repetidos dejando los de mayor venta
+        ======================================================================*/
+
+        let filterSales = [];
+
+        getSales.forEach(sale => {
+
+          if (!filterSales.find(resp => resp.product == sale.product)) {
+
+            const { product, quantity } = sale;
+
+            filterSales.push({ product, quantity })
+
+
+          }
+        })
+
+        /*===================================================================
+          Filtramos la data de productos buscando coincidencias con las ventas
+        ======================================================================*/
+
+        filterSales.forEach((sale, index)=>{
+
+
+        /*============================
+          Filtramos hasta 20 ventas
+        ==============================*/
+
+        if(index < 20){
+
+          this.productsService.getFilterData("name", sale.product)
+            .subscribe(resp => {
+              console.log("resp", resp);
+            })
+
+        }
+
+        })
+
+
+
+      })
+
 
 
 
@@ -174,7 +255,7 @@ export class HomeHotTodayComponent implements OnInit {
 
 
         let offer = JSON.parse($(offer_1[i]).attr("offer"));
-        console.log("offer", offer[0]);
+        //  console.log("offer", offer[0]);
 
 
         /*================================================================

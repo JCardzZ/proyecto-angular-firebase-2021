@@ -22,6 +22,10 @@ export class HomeHotTodayComponent implements OnInit {
   products: Array<any> = [];
   render: Boolean = true;
   cargando: Boolean = false;
+  topSales: Array<any> = [];
+  topSalesBlock: Array<any> = [];
+  renderBestSeler: Boolean = true;
+
 
   constructor(private productsService: ProductsService, private salesService: SalesService) { }
 
@@ -142,31 +146,48 @@ export class HomeHotTodayComponent implements OnInit {
         /*===================================================================
           Filtramos la data de productos buscando coincidencias con las ventas
         ======================================================================*/
+        let block = 0;
+        filterSales.forEach((sale, index) => {
 
-        filterSales.forEach((sale, index)=>{
+          block++;
 
 
-        /*============================
-          Filtramos hasta 20 ventas
-        ==============================*/
+          /*============================
+            Filtramos hasta 20 ventas
+          ==============================*/
 
-        if(index < 20){
 
-          this.productsService.getFilterData("name", sale.product)
-            .subscribe(resp => {
-              console.log("resp", resp);
-            })
+          if (index < 20) {
 
-        }
+            this.productsService.getFilterData("name", sale.product)
+              .subscribe(resp => {
+
+                let i;
+
+                for (i in resp) {
+                  this.topSales.push(resp[i])
+
+                }
+
+              })
+
+          }
 
         })
 
 
+        /*===================================================================
+          Enviamos el minimo de bloques para mostrar 4 productos por bloque
+        ======================================================================*/
+
+        for (let i = 0; i < Math.round(block / 4); i++) {
+
+          this.topSalesBlock.push(i);
+          //console.log("this.topSales", this.topSalesBlock);
+        }
+
 
       })
-
-
-
 
   }
   /*================================================================
@@ -365,6 +386,101 @@ export class HomeHotTodayComponent implements OnInit {
       Ejecutamos funciones globales con respecto al stock
       =================================================================*/
       ProgressBar.fnc();
+
+    }
+  }
+
+  callbackBestSeller(topSales) {
+
+    if (this.renderBestSeler) {
+
+      this.renderBestSeler = false;
+
+      /*================================================================
+          Capturamos la cantidad de 4 productos por bloque
+        =================================================================*/
+
+      let topSaleBlock = $(".topSaleBlock");
+      let top20Array = [];
+
+
+      /*================================================================
+          Ejecutamos en SetTimeOut por cada bloque un segundo de espera
+        =================================================================*/
+
+      setTimeout(function () {
+
+
+
+        for (let i = 0; i < topSaleBlock.length; i++) {
+
+
+          /*================================================================
+         Agreagamos la cantidad de 4 productos por bloque
+       =================================================================*/
+
+          top20Array.push(
+
+            topSales.slice(i * topSaleBlock.length, (i * topSaleBlock.length) + i * topSaleBlock.length)
+
+          )
+
+          /*================================================================
+      Hacemos un recorrido por el nuevo array de objetos
+    =================================================================*/
+
+          let f;
+
+          for (f in top20Array[i]) {
+
+            $(topSaleBlock[i]).append(`
+
+            <div class="ps-product--horizontal ">
+
+            <div class="ps-product__thumbnail ">
+                <a href="product-default.html ">
+                    <img src="{{path}}img/products/technology/1.jpg " alt=" ">
+                </a>
+            </div>
+
+            <div class="ps-product__content ">
+
+                <a class="ps-product__title " href="product-default.html ">Sound Intone I65 Earphone White Version</a>
+
+                <div class="ps-product__rating ">
+
+                    <select class="ps-rating " data-read-only="true ">
+                            <option value="1 ">1</option>
+                            <option value="1 ">2</option>
+                            <option value="1 ">3</option>
+                            <option value="1 ">4</option>
+                            <option value="2 ">5</option>
+                        </select>
+
+                    <span>01</span>
+
+                </div>
+
+                <p class="ps-product__price ">105.30</p>
+
+            </div>
+
+        </div>
+
+
+            `)
+
+          }
+
+
+
+
+        }
+
+        //console.log("top20Array",top20Array);
+
+      }, topSaleBlock.length * 1000)
+
 
     }
   }

@@ -416,12 +416,12 @@ export class HomeHotTodayComponent implements OnInit {
 
 
           /*================================================================
-         Agreagamos la cantidad de 4 productos por bloque
+         Agregamos la cantidad de 4 productos por bloque
        =================================================================*/
 
           top20Array.push(
 
-            topSales.slice(i * topSaleBlock.length, (i * topSaleBlock.length) + i * topSaleBlock.length)
+            topSales.slice(i * topSaleBlock.length, (i * topSaleBlock.length) +  topSaleBlock.length)
 
           )
 

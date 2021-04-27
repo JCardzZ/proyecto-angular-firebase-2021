@@ -509,6 +509,14 @@ export class HomeHotTodayComponent implements OnInit {
 
         //console.log("top20Array",top20Array);
 
+
+				/*=============================================
+				Modificamos el estilo del plugin OWL Carousel
+				=============================================*/
+
+        $(".owl-dots").css({"bottom":"0"})
+				$(".owl-dot").css({"background":"#ddd"})
+
       }, topSaleBlock.length * 1000)
 
 

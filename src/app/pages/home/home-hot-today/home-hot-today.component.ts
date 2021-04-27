@@ -147,10 +147,8 @@ export class HomeHotTodayComponent implements OnInit {
           Filtramos la data de productos buscando coincidencias con las ventas
         ======================================================================*/
         let block = 0;
+
         filterSales.forEach((sale, index) => {
-
-          block++;
-
 
           /*============================
             Filtramos hasta 20 ventas
@@ -158,6 +156,8 @@ export class HomeHotTodayComponent implements OnInit {
 
 
           if (index < 20) {
+
+            block++;
 
             this.productsService.getFilterData("name", sale.product)
               .subscribe(resp => {

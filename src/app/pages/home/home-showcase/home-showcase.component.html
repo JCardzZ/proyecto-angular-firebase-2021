@@ -4,13 +4,13 @@
 
 <div class="ps-section--gray">
 
-    <div class="container">
+    <div *ngIf="!cargando" class="container">
 
         <!--=====================================
   Products of category
   ======================================-->
 
-        <div class="ps-block--products-of-category">
+        <div *ngFor="let category of categories" class="ps-block--products-of-category">
 
             <!--=====================================
     Menu subcategory
@@ -18,7 +18,7 @@
 
             <div class="ps-block__categories">
 
-                <h3>Clothing & <br> Apparel</h3>
+                <h3>{{category.name}}</h3>
 
                 <ul>
                     <li><a href="#">Best Seller</a></li>
@@ -31,7 +31,7 @@
                     <li><a href="#">Sales & Deals</a></li>
                 </ul>
 
-                <a class="ps-block__more-link" href="#">View All</a>
+                <a class="ps-block__more-link" routerLink="products/{{category.url}}">View All</a>
 
             </div>
 
@@ -346,6 +346,16 @@
 
     </div>
     <!-- End Container-->
+
+    <!--=====================================
+Preload
+======================================-->
+    <div *ngIf="cargando" class="d-flex justify-content-center">
+
+        <div class="spinner-border text-muted my-5"></div>
+
+    </div>
+
 
 </div>
 <!-- End Section Gray-->

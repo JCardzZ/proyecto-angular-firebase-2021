@@ -10,7 +10,7 @@
   Products of category
   ======================================-->
 
-        <div *ngFor="let category of categories" class="ps-block--products-of-category">
+        <div *ngFor="let category of categories; let lastIndex = last" class="ps-block--products-of-category">
 
             <!--=====================================
     Menu subcategory
@@ -20,15 +20,8 @@
 
                 <h3>{{category.name}}</h3>
 
-                <ul>
-                    <li><a href="#">Best Seller</a></li>
-                    <li><a href="#">New Arrivals</a></li>
-                    <li><a href="#">Women</a></li>
-                    <li><a href="#">Men</a></li>
-                    <li><a href="#">Girls</a></li>
-                    <li><a href="#">Boys</a></li>
-                    <li><a href="#">Baby</a></li>
-                    <li><a href="#">Sales & Deals</a></li>
+                <ul [attr.category-showcase]="category.name">
+
                 </ul>
 
                 <a class="ps-block__more-link" routerLink="products/{{category.url}}">View All</a>
@@ -339,6 +332,13 @@
             </div>
             <!-- End Block Product Box -->
 
+
+
+
+
+
+
+            {{lastIndex ? callback(): ""}}
         </div>
         <!-- End Products of category -->
 
@@ -358,4 +358,5 @@ Preload
 
 
 </div>
+<!-- End Section Gray-->
 <!-- End Section Gray-->

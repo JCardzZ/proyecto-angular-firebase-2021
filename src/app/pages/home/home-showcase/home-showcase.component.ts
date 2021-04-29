@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Path } from '../../../config';
 
 declare var jQuery: any;
-declare var $:any;
+declare var $: any;
 
 import { CategoriesService } from '../../../services/categories.service';
 import { SubCategoriesService } from '../../../services/sub-categories.service';
+import { ProductsService } from '../../../services/products.service';
+
 
 
 
@@ -21,7 +23,8 @@ export class HomeShowcaseComponent implements OnInit {
   cargando: Boolean = false;
   render: Boolean = true;
 
-  constructor(private categoriesService: CategoriesService, private subCategoriesService: SubCategoriesService) { }
+  constructor(private categoriesService: CategoriesService,
+    private subCategoriesService: SubCategoriesService, private productsService: ProductsService) { }
 
   ngOnInit(): void {
     this.cargando = true;
@@ -68,6 +71,7 @@ export class HomeShowcaseComponent implements OnInit {
       this.render = false;
 
       let arraySubCategories = [];
+      let arrayProducts = [];
 
       /*================================================================
     Separar las categorias
@@ -84,7 +88,7 @@ export class HomeShowcaseComponent implements OnInit {
 
             let i;
 
-            for(i in resp){
+            for (i in resp) {
               arraySubCategories.push({
                 "category": resp[i].category,
                 "subcategory": resp[i].name,
@@ -94,22 +98,114 @@ export class HomeShowcaseComponent implements OnInit {
             }
 
 
-        /*=============================================================================================
-        Recorremos el array de objetso nuevo para buscar coincidencias con los nombres de las categorias
-      =================================================================================================*/
+            /*=============================================================================================
+            Recorremos el array de objetso nuevo para buscar coincidencias con los nombres de las categorias
+          =================================================================================================*/
 
-      for(i in arraySubCategories){
+            for (i in arraySubCategories) {
 
-        if (category.name == arraySubCategories[i].category){
+              if (category.name == arraySubCategories[i].category) {
 
-          $(`[category-showcase='${category.name}']`).append(`
-          
+                $(`[category-showcase='${category.name}']`).append(`
+
           <li><a href="products/${arraySubCategories[i].url}">${arraySubCategories[i].subcategory}</a></li>
           `)
-        }
-      }
+              }
+            }
 
           })
+
+
+        /*==================================================================================
+        Tomamos la colección de los productos filtrando con las url's de categorias
+      =====================================================================================*/
+
+        this.productsService.getFilterDataWithLimit("category", category.url, 6)
+          .subscribe(resp => {
+
+            let i;
+
+            for (i in resp) {
+              arrayProducts.push({
+                "category": resp[i].category,
+                "url": resp[i].url,
+                "name": resp[i].name,
+                "image": resp[i].image,
+                "price": resp[i].price,
+                "offer": resp[i].reviews,
+                "reviews": resp[i].category,
+                "stock": resp[i].stock,
+                "vertical_slider": resp[i].vertical_slider,
+
+
+              })
+            }
+
+            /*======================================================================================
+              Recorremos el array de objetos nuevo para buscar coincidencias con las url de categorias
+            =========================================================================================*/
+
+            for (i in arrayProducts) {
+
+              if (category.url == arrayProducts[i].category) {
+
+                $(`[category-pb='${arrayProducts[i].category}']`).append(
+
+
+                `
+                <div class="ps-product ps-product--simple">
+
+                    <div class="ps-product__thumbnail">
+
+                        <a href="product/${arrayProducts[i].url}">
+
+                            <img src="assets/img/products/${arrayProducts[i].category}/${arrayProducts[i].image}" alt="">
+
+                        </a>
+
+                        <div class="ps-product__badge">-16%</div>
+
+                    </div>
+
+                    <div class="ps-product__container">
+
+                        <div class="ps-product__content" data-mh="clothing">
+
+                            <a class="ps-product__title" href="product/${arrayProducts[i].url}">${arrayProducts[i].name}</a>
+
+                            <div class="ps-product__rating">
+
+                                <select class="ps-rating" data-read-only="true">
+
+                                    <option value="1">1</option>
+                                    <option value="1">2</option>
+                                    <option value="1">3</option>
+                                    <option value="1">4</option>
+                                    <option value="2">5</option>
+
+                                </select>
+
+                                <span>01</span>
+
+                            </div>
+
+                            <p class="ps-product__price sale">$567.99 <del>$670.00 </del></p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>`
+            )
+              }
+            }
+
+
+
+          })
+
 
       })
     }

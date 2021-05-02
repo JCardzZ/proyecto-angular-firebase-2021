@@ -1,6 +1,6 @@
   /*======================================
-                                                                                                                                                                                                                                                                           OwlCarouselConfig
-                                                                                                                                                                                                                                                                      ========================================*/
+                                                                                                                                                                                                                                                                             OwlCarouselConfig
+                                                                                                                                                                                                                                                                        ========================================*/
   export let OwlCarouselConfig = {
 
       fnc: function() {
@@ -278,23 +278,23 @@ CountDown
       }
   }
 
- /*======================================
-       ProgressBar
- ========================================*/
+  /*======================================
+        ProgressBar
+  ========================================*/
 
   export let ProgressBar = {
-   fnc: function() {
- var progress = $('.ps-progress');
-         progress.each(function(e) {
-         var value = $(this).data('value');
-         $(this).find('span').css({
-         width: value + "%"
-         })
-     });
-   }
+      fnc: function() {
+          var progress = $('.ps-progress');
+          progress.each(function(e) {
+              var value = $(this).data('value');
+              $(this).find('span').css({
+                  width: value + "%"
+              })
+          });
+      }
 
   }
-  
+
 
   /*======================================
        BackgroundImage

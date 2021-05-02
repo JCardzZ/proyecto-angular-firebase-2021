@@ -458,12 +458,13 @@ export class HomeHotTodayComponent implements OnInit {
 
               if (type = "Disccount") {
 
-                offer = (top20Array[i][f].price * value / 100).toFixed(2)
+                offer = (top20Array[i][f].price - (top20Array[i][f].price * value / 100)).toFixed(2)
               }
 
               if (type == "Fixed") {
 
-                offer = (top20Array[i][f].price - value).toFixed(2)
+               // offer = (top20Array[i][f].price - value).toFixed(2)
+               offer = value;
               }
 
               price = `<p class="ps-product__price sale">$${offer} <del>$${top20Array[i][f].price} </del></p>`;

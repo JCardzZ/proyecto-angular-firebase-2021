@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Path } from '../../../config';
+import { OwlCarouselConfig, Rating } from '../../../funtions';
 
 declare var jQuery: any;
 declare var $: any;
@@ -7,6 +8,8 @@ declare var $: any;
 import { CategoriesService } from '../../../services/categories.service';
 import { SubCategoriesService } from '../../../services/sub-categories.service';
 import { ProductsService } from '../../../services/products.service';
+
+
 
 
 
@@ -132,11 +135,10 @@ export class HomeShowcaseComponent implements OnInit {
                 "name": resp[i].name,
                 "image": resp[i].image,
                 "price": resp[i].price,
-                "offer": resp[i].reviews,
-                "reviews": resp[i].category,
+                "offer": resp[i].offer,
+                "reviews": resp[i].reviews,
                 "stock": resp[i].stock,
-                "vertical_slider": resp[i].vertical_slider,
-
+                "vertical_slider": resp[i].vertical_slider
 
               })
             }
@@ -149,10 +151,88 @@ export class HomeShowcaseComponent implements OnInit {
 
               if (category.url == arrayProducts[i].category) {
 
-                $(`[category-pb='${arrayProducts[i].category}']`).append(
+                /*=============================================
+              Definimos si el precio del producto tiene oferta o no
+              =============================================*/
+
+                let price;
+                let type;
+                let value;
+                let offer;
+                let disccount;
+
+                if (arrayProducts[i].offer != "") {
+
+                  type = JSON.parse(arrayProducts[i].offer)[0];
+                  value = JSON.parse(arrayProducts[i].offer)[1];
+                  if (arrayProducts[i].offer != "") {
+
+                    type = JSON.parse(arrayProducts[i].offer)[0];
+                    value = JSON.parse(arrayProducts[i].offer)[1];
+
+                    if (type == "Disccount") {
+
+                      offer = (arrayProducts[i].price - (arrayProducts[i].price * value / 100)).toFixed(2)
+                    }
+
+                    if (type == "Fixed") {
+
+                      offer = value;
+                      value = Math.round(offer * 100 / arrayProducts[i].price);
+
+                    }
+
+                    disccount = `<div class="ps-product__badge">-${value}%</div>`;
+
+                    price = `<p class="ps-product__price sale">$${offer} <del>$${arrayProducts[i].price} </del></p>`
 
 
-                `
+                  } else {
+
+                    price = `<p class="ps-product__price">$${arrayProducts[i].price} </p>`
+                  }
+
+                  /*=============================================
+                Calculamos el total de calificaciones de las reseñas
+                =============================================*/
+
+                  let totalReview = 0;
+
+                  for (let f = 0; f < JSON.parse(arrayProducts[i].reviews).length; f++) {
+
+                    totalReview += Number(JSON.parse(arrayProducts[i].reviews)[f]["review"]);
+
+                  }
+
+
+
+                  /*=======================================================
+                Imprimimos el total de las calificaciones para cada producto
+                ===========================================================*/
+
+                  let rating = Math.round(totalReview / JSON.parse(arrayProducts[i].reviews).length);
+
+
+                  /*=============================================
+                  Definimos si el producto tiene stock
+                  =============================================*/
+
+
+                  if (arrayProducts[i].stock == 0) {
+
+                    disccount = `<div class="ps-product__badge out-stock">Out Of Stock</div>`;
+                  }
+
+
+
+                  /*=============================================
+                  Imprimimos los productos en el HTML
+                  =============================================*/
+
+                  $(`[category-pb='${arrayProducts[i].category}']`).append(
+
+
+                    `
                 <div class="ps-product ps-product--simple">
 
                     <div class="ps-product__thumbnail">
@@ -163,7 +243,7 @@ export class HomeShowcaseComponent implements OnInit {
 
                         </a>
 
-                        <div class="ps-product__badge">-16%</div>
+                        ${disccount}
 
                     </div>
 
@@ -175,22 +255,16 @@ export class HomeShowcaseComponent implements OnInit {
 
                             <div class="ps-product__rating">
 
-                                <select class="ps-rating" data-read-only="true">
+                                <select class="ps-rating productRating" data-read-only="true">
 
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                    <option value="1">3</option>
-                                    <option value="1">4</option>
-                                    <option value="2">5</option>
 
                                 </select>
 
-                                <span>01</span>
+                                <span>${rating}</span>
 
                             </div>
 
-                            <p class="ps-product__price sale">$567.99 <del>$670.00 </del></p>
-
+                            ${price}
                         </div>
 
                     </div>
@@ -198,10 +272,42 @@ export class HomeShowcaseComponent implements OnInit {
                 </div>
 
             </div>`
-            )
-              }
-            }
+                  )
 
+                  /*================================================================
+                   Clasificamos la cantidad de estrellas según la clasificación
+                  =================================================================*/
+
+                  let arrayRating = $(".productRating");
+
+                  for (let i = 0; i < arrayRating.length; i++) {
+
+
+                    for (let f = 1; f <= 5; f++) {
+
+
+                      $(arrayRating[i]).append(
+
+                        `<option value="2">${f}</option`
+                      )
+
+                      if (rating == f) {
+                        $(arrayRating[i]).children('option').val(1)
+                      }
+
+                    }
+
+                  }
+
+                  /*================================================================
+                 Ejecutar funciones globales con respecto a las Reseñas
+                =================================================================*/
+                  Rating.fnc();
+
+                }
+              }
+
+            }
 
 
           })

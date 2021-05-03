@@ -17,6 +17,6 @@ Exportamos el endPoint de la APIREST de Firebase
 
 exports.Path = Path;
 var Api = {
-  url: 'https://estudio-8f948-default-rtdb.firebaseio.com/'
+  url: 'https://market06-9e5d7-default-rtdb.firebaseio.com/'
 };
 exports.Api = Api;

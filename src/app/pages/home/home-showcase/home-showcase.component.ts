@@ -68,18 +68,18 @@ export class HomeShowcaseComponent implements OnInit {
   /*================================================================
     Función que nos avisa cuando finaliza el renderizado de Angular
     ===============================================================*/
-  callback() {
+  callback(indexes) {
     if (this.render) {
 
       this.render = false;
 
       let arraySubCategories = [];
       let arrayProducts = [];
-
+      let preloadSV = 0;
       /*================================================================
     Separar las categorias
   ===============================================================*/
-      this.categories.forEach(category => {
+      this.categories.forEach((category, index) => {
 
 
         /*==================================================================================
@@ -303,6 +303,59 @@ export class HomeShowcaseComponent implements OnInit {
                  Ejecutar funciones globales con respecto a las Reseñas
                 =================================================================*/
                   Rating.fnc();
+
+
+                  /*=============================================
+                  Imprimimos los productos en el Vertical Slider
+                  =============================================*/
+
+                  $(`[category-sl='${arrayProducts[i].category}']`).append(`
+
+                  <a href="product/${arrayProducts[i].url}">
+
+                  <img src="assets/img/products/${arrayProducts[i].category}/vertical/${arrayProducts[i].vertical_slider}" alt="">
+
+                </a>
+
+                  `)
+
+
+                  /*================================================================
+                 Ejecutar funciones globales con respecto al carousel
+                =================================================================*/
+
+                  preloadSV++;
+
+                 // console.log("index", index);
+                  if (preloadSV == (indexes + 1) * 6) {
+
+
+
+                    $(`[category-sl`).addClass('ps-carousel--product-box')
+                    $(`[category-sl`).addClass('owl-slider')
+
+
+                    $(`[category-sl`).owlCarousel({
+
+
+                      items: 1,
+                      autoplay: true,
+                      autoplayTimeout: 7000,
+                      loop: true,
+                      nav: true,
+                      margin: 0,
+                      dots: true,
+                      navSpeed: 500,
+                      dotsSpeed: 500,
+                      dragEndSpeed: 500,
+                      navText: ["<i class='icon-chevron-left'></i>", "<i class='icon-chevron-right'></i>"],
+
+
+
+
+                    });
+                  }
+
 
                 }
               }

@@ -10,7 +10,7 @@
   Products of category
   ======================================-->
 
-        <div *ngFor="let category of categories; let lastIndex = last" class="ps-block--products-of-category">
+        <div *ngFor="let category of categories; let lastIndex = last; let i = index" class="ps-block--products-of-category">
 
             <!--=====================================
     Menu subcategory
@@ -34,26 +34,8 @@
 
             <div class="ps-block__slider">
 
-                <div class="ps-carousel--product-box owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="7000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="true" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1"
-                    data-owl-item-lg="1" data-owl-duration="500" data-owl-mousedrag="off">
+                <div [attr.category-sl]="category.url">
 
-                    <a href="#">
-
-                        <img src="{{path}}img/slider/vertical/clothing-1.jpg" alt="">
-
-                    </a>
-
-                    <a href="#">
-
-                        <img src="{{path}}img/slider/vertical/clothing-2.jpg" alt="">
-
-                    </a>
-
-                    <a href="#">
-
-                        <img src="{{path}}img/slider/vertical/clothing-3.jpg" alt="">
-
-                    </a>
 
                 </div>
 
@@ -69,7 +51,7 @@
                 <!-- End Block Product Box -->
 
 
-                {{lastIndex ? callback(): ""}}
+                {{lastIndex ? callback(i): ""}}
             </div>
             <!-- End Products of category -->
 

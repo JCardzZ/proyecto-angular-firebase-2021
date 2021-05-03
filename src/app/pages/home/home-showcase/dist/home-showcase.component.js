@@ -52,16 +52,17 @@ var HomeShowcaseComponent = /** @class */ (function () {
     /*================================================================
       Función que nos avisa cuando finaliza el renderizado de Angular
       ===============================================================*/
-    HomeShowcaseComponent.prototype.callback = function () {
+    HomeShowcaseComponent.prototype.callback = function (indexes) {
         var _this = this;
         if (this.render) {
             this.render = false;
             var arraySubCategories_1 = [];
             var arrayProducts_1 = [];
+            var preloadSV_1 = 0;
             /*================================================================
           Separar las categorias
         ===============================================================*/
-            this.categories.forEach(function (category) {
+            this.categories.forEach(function (category, index) {
                 /*==================================================================================
                 Tomamos la colección de las sub-categorias filtrando con los nombres de las categorias
               =====================================================================================*/
@@ -172,6 +173,32 @@ var HomeShowcaseComponent = /** @class */ (function () {
                                Ejecutar funciones globales con respecto a las Reseñas
                               =================================================================*/
                                 funtions_1.Rating.fnc();
+                                /*=============================================
+                                Imprimimos los productos en el Vertical Slider
+                                =============================================*/
+                                $("[category-sl='" + arrayProducts_1[i].category + "']").append("\n\n                  <a href=\"product/" + arrayProducts_1[i].url + "\">\n\n                  <img src=\"assets/img/products/" + arrayProducts_1[i].category + "/vertical/" + arrayProducts_1[i].vertical_slider + "\" alt=\"\">\n\n                </a>\n\n                  ");
+                                /*================================================================
+                               Ejecutar funciones globales con respecto al carousel
+                              =================================================================*/
+                                preloadSV_1++;
+                                // console.log("index", index);
+                                if (preloadSV_1 == (indexes + 1) * 6) {
+                                    $("[category-sl").addClass('ps-carousel--product-box');
+                                    $("[category-sl").addClass('owl-slider');
+                                    $("[category-sl").owlCarousel({
+                                        items: 1,
+                                        autoplay: true,
+                                        autoplayTimeout: 7000,
+                                        loop: true,
+                                        nav: true,
+                                        margin: 0,
+                                        dots: true,
+                                        navSpeed: 500,
+                                        dotsSpeed: 500,
+                                        dragEndSpeed: 500,
+                                        navText: ["<i class='icon-chevron-left'></i>", "<i class='icon-chevron-right'></i>"]
+                                    });
+                                }
                             }
                         }
                     }

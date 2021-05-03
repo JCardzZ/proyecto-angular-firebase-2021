@@ -20,6 +20,7 @@ import { HomePromotionsComponent } from './pages/home/home-promotions/home-promo
 import { HomeHotTodayComponent } from './pages/home/home-hot-today/home-hot-today.component';
 import { HomeTopCategoriesComponent } from './pages/home/home-top-categories/home-top-categories.component';
 import { HomeShowcaseComponent } from './pages/home/home-showcase/home-showcase.component';
+import { ProductsBreadcrumbComponent } from './pages/products/products-breadcrumb/products-breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { HomeShowcaseComponent } from './pages/home/home-showcase/home-showcase.
     HomePromotionsComponent,
     HomeHotTodayComponent,
     HomeTopCategoriesComponent,
-    HomeShowcaseComponent
+    HomeShowcaseComponent,
+    ProductsBreadcrumbComponent
   ],
   imports: [
     BrowserModule,

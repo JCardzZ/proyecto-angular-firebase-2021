@@ -87,7 +87,7 @@
 
                             <li *ngFor="let category of categories; let i = index; let lastIndex = last" class="menu-item-has-children has-mega-menu">
 
-                                <a routerLink="products/{{category.url}}"><i class="{{category.icon}}"></i>{{category.name}}</a>
+                                <a routerLink="products/{{category.url}}" target="_top"><i class="{{category.icon}}"></i>{{category.name}}</a>
 
                                 <div class="mega-menu">
                                     <div class="mega-menu__column" *ngFor="let title of arrayTitleList[i]">

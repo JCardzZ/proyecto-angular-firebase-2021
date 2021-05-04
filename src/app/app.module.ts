@@ -21,6 +21,7 @@ import { HomeHotTodayComponent } from './pages/home/home-hot-today/home-hot-toda
 import { HomeTopCategoriesComponent } from './pages/home/home-top-categories/home-top-categories.component';
 import { HomeShowcaseComponent } from './pages/home/home-showcase/home-showcase.component';
 import { ProductsBreadcrumbComponent } from './pages/products/products-breadcrumb/products-breadcrumb.component';
+import { BestSalesItemsComponent } from './pages/products/best-sales-items/best-sales-items.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ProductsBreadcrumbComponent } from './pages/products/products-breadcrum
     HomeHotTodayComponent,
     HomeTopCategoriesComponent,
     HomeShowcaseComponent,
-    ProductsBreadcrumbComponent
+    ProductsBreadcrumbComponent,
+    BestSalesItemsComponent
   ],
   imports: [
     BrowserModule,

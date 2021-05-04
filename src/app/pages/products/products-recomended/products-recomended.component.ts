@@ -1,40 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import { Path } from '../../../config';
+import { ProductsService } from '../../../services/products.service';
+import { ActivatedRoute } from '@angular/router';
 import { OwlCarouselConfig,
   CarouselNavigation,
   Rating,
   DinamicRating,
   DinamicReviews,
   DinamicPrice } from '../../../funtions.js';
-import { Path } from '../../../config';
-import { ProductsService } from '../../../services/products.service';
-import { ActivatedRoute } from '@angular/router';
-
-
-declare var jQuery: any;
-declare var $: any;
 
 @Component({
-  selector: 'app-best-sales-items',
-  templateUrl: './best-sales-items.component.html',
-  styleUrls: ['./best-sales-items.component.css']
+  selector: 'app-products-recomended',
+  templateUrl: './products-recomended.component.html',
+  styleUrls: ['./products-recomended.component.css']
 })
-export class BestSalesItemsComponent implements OnInit {
-
+export class ProductsRecomendedComponent implements OnInit {
   path: String = Path.url;
-  bestSalesItem: Array<any> = [];
+  recomendedItems: Array<any> = [];
   render: Boolean = true;
   rating: Array<any> = [];
   reviews: Array<any> = [];
   price: Array<any> = [];
-  cargando: Boolean = false;
-
+  cargando:Boolean = false;
 
 
   constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+this.cargando = true;
 
-    this.cargando = true;
     /*======================================
  Capturamos el parámetro URL
  ========================================*/
@@ -87,7 +81,7 @@ export class BestSalesItemsComponent implements OnInit {
      =================================================================*/
   productsFnc(response) {
 
-    this.bestSalesItem = [];
+    this.recomendedItems = [];
 
     /*================================================================
             Hacemos un recorrido por la respuesta que nos traiga el filtrado
@@ -106,7 +100,7 @@ export class BestSalesItemsComponent implements OnInit {
         =============================================*/
 
     getSales.sort(function (a, b) {
-      return (b.sales - a.sales)
+      return (b.views - a.views)
     })
 
     /*================================================================
@@ -116,12 +110,12 @@ export class BestSalesItemsComponent implements OnInit {
     getSales.forEach((product, index) => {
 
       if (index < 10) {
-        this.bestSalesItem.push(product);
-        this.rating.push(DinamicRating.fnc(this.bestSalesItem[index]));
+        this.recomendedItems.push(product);
+        this.rating.push(DinamicRating.fnc(this.recomendedItems[index]));
         this.reviews.push(DinamicReviews.fnc(this.rating[index]));
-        this.price.push(DinamicPrice.fnc(this.bestSalesItem[index]));
-
+        this.price.push(DinamicPrice.fnc(this.recomendedItems[index]));
         this.cargando = false;
+
       }
     })
 

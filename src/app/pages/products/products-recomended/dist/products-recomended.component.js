@@ -6,23 +6,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.BestSalesItemsComponent = void 0;
+exports.ProductsRecomendedComponent = void 0;
 var core_1 = require("@angular/core");
-var funtions_js_1 = require("../../../funtions.js");
 var config_1 = require("../../../config");
-var BestSalesItemsComponent = /** @class */ (function () {
-    function BestSalesItemsComponent(productsService, activatedRoute) {
+var funtions_js_1 = require("../../../funtions.js");
+var ProductsRecomendedComponent = /** @class */ (function () {
+    function ProductsRecomendedComponent(productsService, activatedRoute) {
         this.productsService = productsService;
         this.activatedRoute = activatedRoute;
         this.path = config_1.Path.url;
-        this.bestSalesItem = [];
+        this.recomendedItems = [];
         this.render = true;
         this.rating = [];
         this.reviews = [];
         this.price = [];
         this.cargando = false;
     }
-    BestSalesItemsComponent.prototype.ngOnInit = function () {
+    ProductsRecomendedComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.cargando = true;
         /*======================================
@@ -57,9 +57,9 @@ var BestSalesItemsComponent = /** @class */ (function () {
     /*================================================================
             Declaramos función para mostrar las mejores ventas
        =================================================================*/
-    BestSalesItemsComponent.prototype.productsFnc = function (response) {
+    ProductsRecomendedComponent.prototype.productsFnc = function (response) {
         var _this = this;
-        this.bestSalesItem = [];
+        this.recomendedItems = [];
         /*================================================================
                 Hacemos un recorrido por la respuesta que nos traiga el filtrado
            =================================================================*/
@@ -72,17 +72,17 @@ var BestSalesItemsComponent = /** @class */ (function () {
             Ordenamos de mayor a menor ventas el arreglo de objetos
             =============================================*/
         getSales.sort(function (a, b) {
-            return (b.sales - a.sales);
+            return (b.views - a.views);
         });
         /*================================================================
          Filtramos solo hasta 10 productos
     =================================================================*/
         getSales.forEach(function (product, index) {
             if (index < 10) {
-                _this.bestSalesItem.push(product);
-                _this.rating.push(funtions_js_1.DinamicRating.fnc(_this.bestSalesItem[index]));
+                _this.recomendedItems.push(product);
+                _this.rating.push(funtions_js_1.DinamicRating.fnc(_this.recomendedItems[index]));
                 _this.reviews.push(funtions_js_1.DinamicReviews.fnc(_this.rating[index]));
-                _this.price.push(funtions_js_1.DinamicPrice.fnc(_this.bestSalesItem[index]));
+                _this.price.push(funtions_js_1.DinamicPrice.fnc(_this.recomendedItems[index]));
                 _this.cargando = false;
             }
         });
@@ -90,7 +90,7 @@ var BestSalesItemsComponent = /** @class */ (function () {
     /*=============================================
       Función que nos avisa cuando finaliza el renderizado de Angular
       =============================================*/
-    BestSalesItemsComponent.prototype.callback = function () {
+    ProductsRecomendedComponent.prototype.callback = function () {
         if (this.render) {
             this.render = false;
             funtions_js_1.OwlCarouselConfig.fnc();
@@ -98,13 +98,13 @@ var BestSalesItemsComponent = /** @class */ (function () {
             funtions_js_1.Rating.fnc();
         }
     };
-    BestSalesItemsComponent = __decorate([
+    ProductsRecomendedComponent = __decorate([
         core_1.Component({
-            selector: 'app-best-sales-items',
-            templateUrl: './best-sales-items.component.html',
-            styleUrls: ['./best-sales-items.component.css']
+            selector: 'app-products-recomended',
+            templateUrl: './products-recomended.component.html',
+            styleUrls: ['./products-recomended.component.css']
         })
-    ], BestSalesItemsComponent);
-    return BestSalesItemsComponent;
+    ], ProductsRecomendedComponent);
+    return ProductsRecomendedComponent;
 }());
-exports.BestSalesItemsComponent = BestSalesItemsComponent;
+exports.ProductsRecomendedComponent = ProductsRecomendedComponent;

@@ -1,6 +1,6 @@
   /*======================================
-                                                                                                                                                                                                                                                                             OwlCarouselConfig
-                                                                                                                                                                                                                                                                        ========================================*/
+                                                                                                                                                                                                                                                                                     OwlCarouselConfig
+                                                                                                                                                                                                                                                                                ========================================*/
   export let OwlCarouselConfig = {
 
       fnc: function() {
@@ -26,7 +26,7 @@
                       dataNavRight = (el.data('owl-nav-right')) ? el.data('owl-nav-right') : "<i class='icon-chevron-right'></i>",
                       duration = el.data('owl-duration'),
                       datamouseDrag = (el.data('owl-mousedrag') == 'on') ? true : false;
-                  if (target.children('div, span, a, img, h1, h2, h3, h4, h5, h5').length >= 2) {
+                  if (target.children('div, span, a, img, h1, h2, h3, h4, h5, h5').length >= 1) {
                       el.owlCarousel({
                           animateIn: dataAnimateIn,
                           animateOut: dataAnimateOut,
@@ -313,4 +313,33 @@ CountDown
           });
 
       }
+  }
+
+  /*=============================================
+DinamicRating
+=============================================*/
+
+  export let DinamicRating = {
+
+      fnc: function(response) {
+
+          /*=============================================
+          Calculamos el total de las calificaciones de las reseñas
+          =============================================*/
+
+          let totalReview = 0;
+          let rating = 0;
+
+          for (let i = 0; i < JSON.parse(response.reviews).length; i++) {
+
+              totalReview += Number(JSON.parse(response.reviews)[i]["review"]);
+
+          }
+
+          rating = Math.round(totalReview / JSON.parse(response.reviews).length);
+
+          return rating;
+
+      }
+
   }

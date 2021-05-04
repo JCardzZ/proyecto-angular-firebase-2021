@@ -17,6 +17,9 @@ var BestSalesItemsComponent = /** @class */ (function () {
         this.path = config_1.Path.url;
         this.bestSalesItem = [];
         this.render = true;
+        this.rating = [];
+        this.reviews = [];
+        this.price = [];
     }
     BestSalesItemsComponent.prototype.ngOnInit = function () {
         /*======================================
@@ -64,8 +67,8 @@ var BestSalesItemsComponent = /** @class */ (function () {
             getSales.push(response[i]);
         }
         /*=============================================
-                Ordenamos de mayor a menor ventas el arreglo de objetos
-                =============================================*/
+            Ordenamos de mayor a menor ventas el arreglo de objetos
+            =============================================*/
         getSales.sort(function (a, b) {
             return (b.sales - a.sales);
         });
@@ -75,18 +78,99 @@ var BestSalesItemsComponent = /** @class */ (function () {
         getSales.forEach(function (product, index) {
             if (index < 10) {
                 _this.bestSalesItem.push(product);
+                _this.rating.push(_this.dinamicRating(_this.bestSalesItem[index]));
+                _this.reviews.push(_this.dinamicReviews(_this.rating[index]));
+                _this.price.push(_this.dinamicPrice(_this.bestSalesItem[index]));
             }
         });
     };
     /*=============================================
-        Función que nos avisa cuando finaliza el renderizado de Angular
+      Función para el Rating dinámico
+      =============================================*/
+    BestSalesItemsComponent.prototype.dinamicRating = function (response) {
+        /*=============================================
+          Calculamos el total de las calificaciones  de las reseñas
+          =============================================*/
+        var totalReview = 0;
+        var rating = 0;
+        for (var i = 0; i < JSON.parse(response.reviews).length; i++) {
+            totalReview += Number(JSON.parse(response.reviews)[i]["review"]);
+        }
+        rating = Math.round(totalReview / JSON.parse(response.reviews).length);
+        return rating;
+    };
+    /*=============================================
+      Función para las reseñas dinámicas
+      =============================================*/
+    BestSalesItemsComponent.prototype.dinamicReviews = function (response) {
+        /*=============================================
+        Clasificamos la cantidad de estrellas según la calificación
         =============================================*/
+        var reviews = [];
+        for (var r = 0; r < 5; r++) {
+            if (response < (r + 1)) {
+                reviews[r] = 2;
+            }
+            else {
+                reviews[r] = 1;
+            }
+        }
+        console.log("reviews", reviews);
+        return reviews;
+    };
+    /*=============================================
+  Función para los precios dinámicos
+  =============================================*/
+    BestSalesItemsComponent.prototype.dinamicPrice = function (response) {
+        var type;
+        var value;
+        var offer;
+        var price;
+        var disccount;
+        var arrayPrice = [];
+        var offerDate;
+        var today = new Date();
+        if (response.offer != "") {
+            offerDate = new Date(parseInt(JSON.parse(response.offer)[2].split("-")[0]), parseInt(JSON.parse(response.offer)[2].split("-")[1]) - 1, parseInt(JSON.parse(response.offer)[2].split("-")[2]));
+            if (today < offerDate) {
+                type = JSON.parse(response.offer)[0];
+                value = JSON.parse(response.offer)[1];
+                if (type == "Disccount") {
+                    offer = (response.price - (response.price * value / 100)).toFixed(2);
+                }
+                if (type == "Fixed") {
+                    offer = value;
+                    value = Math.round(offer * 100 / response.price);
+                }
+                disccount = "<div class=\"ps-product__badge\">-" + value + "%</div>";
+                price = "<p class=\"ps-product__price sale\">$<span class=\"end-price\">" + offer + "</span> <del>$" + response.price + " </del></p>";
+            }
+            else {
+                price = "<p class=\"ps-product__price\">$<span class=\"end-price\">" + response.price + "</span></p>";
+            }
+        }
+        else {
+            price = "<p class=\"ps-product__price\">$<span class=\"end-price\">" + response.price + "</span></p>";
+        }
+        /*=============================================
+        Definimos si el producto tiene stock
+        =============================================*/
+        if (response.stock == 0) {
+            disccount = "<div class=\"ps-product__badge out-stock\">Out Of Stock</div>";
+        }
+        arrayPrice[0] = price;
+        arrayPrice[1] = disccount;
+        return arrayPrice;
+    };
+    /*=============================================
+      Función que nos avisa cuando finaliza el renderizado de Angular
+      =============================================*/
     BestSalesItemsComponent.prototype.callback = function () {
         if (this.render) {
             this.render = false;
             funtions_1.OwlCarouselConfig.fnc();
             funtions_1.CarouselNavigation.fnc();
-            //  Rating.fnc();
+            funtions_1.Rating.fnc();
         }
     };
     BestSalesItemsComponent = __decorate([

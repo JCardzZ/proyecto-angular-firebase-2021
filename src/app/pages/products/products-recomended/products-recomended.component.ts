@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Path } from '../../../config';
 import { ProductsService } from '../../../services/products.service';
 import { ActivatedRoute } from '@angular/router';
-import { OwlCarouselConfig,
+import {
+  OwlCarouselConfig,
   CarouselNavigation,
   Rating,
   DinamicRating,
   DinamicReviews,
-  DinamicPrice } from '../../../funtions.js';
+  DinamicPrice
+} from '../../../funtions.js';
 
 @Component({
   selector: 'app-products-recomended',
@@ -21,13 +23,13 @@ export class ProductsRecomendedComponent implements OnInit {
   rating: Array<any> = [];
   reviews: Array<any> = [];
   price: Array<any> = [];
-  cargando:Boolean = false;
+  cargando: Boolean = false;
 
 
   constructor(private productsService: ProductsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-this.cargando = true;
+    this.cargando = true;
 
     /*======================================
  Capturamos el parámetro URL

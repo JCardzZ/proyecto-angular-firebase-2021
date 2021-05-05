@@ -23,6 +23,8 @@ import { HomeShowcaseComponent } from './pages/home/home-showcase/home-showcase.
 import { ProductsBreadcrumbComponent } from './pages/products/products-breadcrumb/products-breadcrumb.component';
 import { BestSalesItemsComponent } from './pages/products/best-sales-items/best-sales-items.component';
 import { ProductsRecomendedComponent } from './pages/products/products-recomended/products-recomended.component';
+import { ProductsShowcaseComponent } from './pages/products/products-showcase/products-showcase.component';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { ProductsRecomendedComponent } from './pages/products/products-recomende
     HomeShowcaseComponent,
     ProductsBreadcrumbComponent,
     BestSalesItemsComponent,
-    ProductsRecomendedComponent
+    ProductsRecomendedComponent,
+    ProductsShowcaseComponent
   ],
   imports: [
     BrowserModule,

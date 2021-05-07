@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.DinamicRating = exports.DinamicReviews = exports.DinamicPrice = exports.BackgroundImage = exports.ProgressBar = exports.Rating = exports.CountDown = exports.ProductLightbox = exports.SlickConfig = exports.CarouselNavigation = exports.OwlCarouselConfig = void 0;
 
 /*======================================
-                                                                                                                                                                                                                                                                                             OwlCarouselConfig
-                                                                                                                                                                                                                                                                                        ========================================*/
+                                                                                                                                                                                                                                                                                                 OwlCarouselConfig
+                                                                                                                                                                                                                                                                                            ========================================*/
 var OwlCarouselConfig = {
   fnc: function fnc() {
     var target = $('.owl-slider');

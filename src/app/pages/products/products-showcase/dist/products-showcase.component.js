@@ -9,18 +9,25 @@ exports.__esModule = true;
 exports.ProductsShowcaseComponent = void 0;
 var core_1 = require("@angular/core");
 var config_1 = require("../../../config");
+var funtions_js_1 = require("../../../funtions.js");
 var ProductsShowcaseComponent = /** @class */ (function () {
     function ProductsShowcaseComponent(productsService, activatedRoute) {
         this.productsService = productsService;
         this.activatedRoute = activatedRoute;
         this.path = config_1.Path.url;
         this.products = [];
+        this.render = true;
+        this.cargando = false;
+        this.rating = [];
+        this.reviews = [];
+        this.price = [];
     }
     ProductsShowcaseComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.cargando = true;
         /*======================================
      Capturamos el parámetro URL
      ========================================*/
-        var _this = this;
         var params = this.activatedRoute.snapshot.params["param"];
         this.productsService.getFilterData("category", params)
             .subscribe(function (resp1) {
@@ -64,8 +71,21 @@ var ProductsShowcaseComponent = /** @class */ (function () {
         getProducts.forEach(function (product, index) {
             if (index < 6) {
                 _this.products.push(product);
+                _this.rating.push(funtions_js_1.DinamicRating.fnc(_this.products[index]));
+                _this.reviews.push(funtions_js_1.DinamicReviews.fnc(_this.rating[index]));
+                _this.price.push(funtions_js_1.DinamicPrice.fnc(_this.products[index]));
+                _this.cargando = false;
             }
         });
+    };
+    /*=============================================
+      Función que nos avisa cuando finaliza el renderizado de Angular
+      =============================================*/
+    ProductsShowcaseComponent.prototype.callback = function () {
+        if (this.render) {
+            this.render = false;
+            funtions_js_1.Rating.fnc();
+        }
     };
     ProductsShowcaseComponent = __decorate([
         core_1.Component({

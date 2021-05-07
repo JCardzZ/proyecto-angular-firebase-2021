@@ -1,6 +1,6 @@
   /*======================================
-                                                                                                                                                                                                                                                                                               OwlCarouselConfig
-                                                                                                                                                                                                                                                                                          ========================================*/
+                                                                                                                                                                                                                                                                                                   OwlCarouselConfig
+                                                                                                                                                                                                                                                                                              ========================================*/
   export let OwlCarouselConfig = {
 
       fnc: function() {

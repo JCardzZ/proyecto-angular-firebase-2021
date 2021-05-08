@@ -3,11 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.DinamicRating = exports.DinamicReviews = exports.DinamicPrice = exports.BackgroundImage = exports.ProgressBar = exports.Rating = exports.CountDown = exports.ProductLightbox = exports.SlickConfig = exports.CarouselNavigation = exports.OwlCarouselConfig = void 0;
+exports.Pagination = exports.DinamicRating = exports.DinamicReviews = exports.DinamicPrice = exports.BackgroundImage = exports.ProgressBar = exports.Rating = exports.CountDown = exports.ProductLightbox = exports.SlickConfig = exports.CarouselNavigation = exports.OwlCarouselConfig = void 0;
 
 /*======================================
-                                                                                                                                                                                                                                                                                                 OwlCarouselConfig
-                                                                                                                                                                                                                                                                                            ========================================*/
+                                                                                                                                                                                                                                                                                                   OwlCarouselConfig
+                                                                                                                                                                                                                                                                                              ========================================*/
 var OwlCarouselConfig = {
   fnc: function fnc() {
     var target = $('.owl-slider');
@@ -405,4 +405,34 @@ var DinamicRating = {
     return rating;
   }
 };
+/*=============================================
+Pagination
+=============================================*/
+
 exports.DinamicRating = DinamicRating;
+var Pagination = {
+  fnc: function fnc() {
+    var target = $('.pagination');
+
+    if (target.length > 0) {
+      target.each(function () {
+        var tg = $(this),
+            totalPages = tg.data('total-pages'),
+            actualPage = tg.data('actual-page'),
+            currentRoute = tg.data('current-route');
+        tg.twbsPagination({
+          totalPages: totalPages,
+          startPage: actualPage,
+          visiblePages: 4,
+          first: "First",
+          last: "Last",
+          prev: '<i class="fas fa-angle-left"></i>',
+          next: '<i class="fas fa-angle-right"></i>'
+        }).on("page", function (evt, page) {
+          window.location.href = currentRoute + "&" + page;
+        });
+      });
+    }
+  }
+};
+exports.Pagination = Pagination;

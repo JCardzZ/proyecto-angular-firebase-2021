@@ -85,6 +85,7 @@ var ProductsShowcaseComponent = /** @class */ (function () {
         if (this.render) {
             this.render = false;
             funtions_js_1.Rating.fnc();
+            funtions_js_1.Pagination.fnc();
         }
     };
     ProductsShowcaseComponent = __decorate([

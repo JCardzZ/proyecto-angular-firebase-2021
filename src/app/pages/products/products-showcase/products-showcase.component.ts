@@ -6,7 +6,8 @@ import {
   Rating,
   DinamicRating,
   DinamicReviews,
-  DinamicPrice
+  DinamicPrice,
+  Pagination
 } from '../../../funtions.js';
 
 @Component({
@@ -121,6 +122,7 @@ export class ProductsShowcaseComponent implements OnInit {
     if (this.render) {
       this.render = false;
       Rating.fnc();
+      Pagination.fnc();
     }
   }
 

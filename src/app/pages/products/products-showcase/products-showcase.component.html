@@ -16,10 +16,10 @@ Products found
 
             <select class="ps-select sortItems" data-placeholder="Sort Items">
 
-              <option></option>
+        <option></option>
 
 
-          </select>
+      </select>
 
             <div class="ps-shopping__view">
 
@@ -110,17 +110,15 @@ Products found
                                 <div class="ps-product__content">
 
                                     <a class="ps-product__title" href="product/{{product.url}}">
-                                  {{product.name}}</a>
+                    {{product.name}}</a>
 
                                     <div class="ps-product__rating">
 
                                         <select class="ps-rating" data-read-only="true">
 
-                                          <option
-                                          *ngFor="let review of reviews[i]; let f = index"
-                                      [value]="review">{{f+1}}</option>
+                      <option *ngFor="let review of reviews[i]; let f = index" [value]="review">{{f+1}}</option>
 
-                                          </select>
+                    </select>
 
                                         <span>{{rating[i]}}</span>
 
@@ -133,7 +131,7 @@ Products found
                                 <div class="ps-product__content hover">
 
                                     <a class="ps-product__title" href="product/{{product.url}}">
-                                  {{product.name}}</a>
+                    {{product.name}}</a>
 
                                     <div [innerHTML]="price[i][0]"></div>
 
@@ -152,13 +150,17 @@ Products found
 
             </div>
 
+
             <div class="ps-pagination">
 
-                <ul class="pagination">
+                <ul class="pagination" [attr.data-total-pages]="2" [attr.data-actual-page]="1" [attr.data-current-route]="'product/consumer-electric'">
+
+
 
                 </ul>
 
             </div>
+
 
         </div>
         <!-- End Grid View-->
@@ -190,17 +192,15 @@ Products found
                         <div class="ps-product__content">
 
                             <a class="ps-product__title" href="product/{{product.url}}">
-                          {{product.name}}</a>
+                {{product.name}}</a>
 
                             <div class="ps-product__rating">
 
                                 <select class="ps-rating" data-read-only="true">
 
-                                  <option
-                                  *ngFor="let review of reviews[i]; let f = index"
-                              [value]="review">{{f+1}}</option>
+                  <option *ngFor="let review of reviews[i]; let f = index" [value]="review">{{f+1}}</option>
 
-                                  </select>
+                </select>
 
                                 <span>{{rating[i]}}</span>
 

@@ -9,6 +9,7 @@ import {
   DinamicPrice,
   Pagination
 } from '../../../funtions.js';
+import { updateFor } from 'typescript';
 
 @Component({
   selector: 'app-products-showcase',
@@ -23,6 +24,12 @@ export class ProductsShowcaseComponent implements OnInit {
   rating: Array<any> = [];
   reviews: Array<any> = [];
   price: Array<any> = [];
+  params: string = null;
+  page;
+  productFound:Number = 0;
+  currentRoute:string = null;
+  totalPage:Number = 0;
+
 
 
 
@@ -36,9 +43,17 @@ export class ProductsShowcaseComponent implements OnInit {
  Capturamos el parámetro URL
  ========================================*/
 
-    let params = this.activatedRoute.snapshot.params["param"];
+    this.params = this.activatedRoute.snapshot.params["param"].split("&")[0];
+    this.page = this.activatedRoute.snapshot.params["param"].split("&")[1];
 
-    this.productsService.getFilterData("category", params)
+
+    this.currentRoute = `products/${this.params}`;
+
+  /*======================================
+ Filtramos la data de los productos con categorías
+ ========================================*/
+
+    this.productsService.getFilterData("category", this.params)
       .subscribe(resp1 => {
 
 
@@ -55,7 +70,7 @@ export class ProductsShowcaseComponent implements OnInit {
           /*================================================================
                   Filtramos data de las Subcategorias
              =================================================================*/
-          this.productsService.getFilterData("sub_category", params)
+          this.productsService.getFilterData("sub_category", this.params)
             .subscribe(resp2 => {
 
               let i;
@@ -73,9 +88,6 @@ export class ProductsShowcaseComponent implements OnInit {
   }
 
 
-
-
-
   /*================================================================
         Declaramos función para las mostrar los productos recomendados
      =================================================================*/
@@ -89,23 +101,52 @@ export class ProductsShowcaseComponent implements OnInit {
 
     let i;
     let getProducts = [];
+    let total=0;
 
     for (i in response) {
+      total++;;
       getProducts.push(response[i]);
 
     }
     /*================================================================
-            Filtramos solo hasta 6 productos
-       =================================================================*/
+      Definimos el total de productos y la paginación de productos
+    =================================================================*/
+
+    this.productFound = total;
+    this.totalPage = Math.ceil(Number(this.productFound)/6);
+
+
+
 
     getProducts.forEach((product, index) => {
 
-      if (index < 6) {
-        this.products.push(product);
-        this.rating.push(DinamicRating.fnc(this.products[index]));
-        this.reviews.push(DinamicReviews.fnc(this.rating[index]));
-        this.price.push(DinamicPrice.fnc(this.products[index]))
-        this.cargando = false;
+      /*================================================================
+          Evaluamos si viene número de página definida
+   =================================================================*/
+
+      if (this.page == undefined) {
+        this.page = 1;
+      }
+
+
+      /*================================================================
+            Configuramos la paginación desde - hasta
+     =================================================================*/
+
+      let first = Number(index) + (this.page * 6) - 6;
+      let last = 6 * this.page;
+
+
+      if (first < last) {
+
+        if (getProducts[first] != undefined) {
+          this.products.push(getProducts[first]);
+          this.rating.push(DinamicRating.fnc(getProducts[first]));
+          this.reviews.push(DinamicReviews.fnc(getProducts[first]));
+          this.price.push(DinamicPrice.fnc(getProducts[first]))
+          this.cargando = false;
+
+        }
 
 
       }

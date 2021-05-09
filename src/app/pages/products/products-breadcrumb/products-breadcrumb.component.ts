@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router'
 export class ProductsBreadcrumbComponent implements OnInit {
 
   breadCrumb: String = null;
+  params:string = null;
 
   constructor(private categoriesService: CategoriesService,
     private subCategoriesService: SubCategoriesService,
@@ -20,13 +21,13 @@ export class ProductsBreadcrumbComponent implements OnInit {
   ngOnInit(): void {
 
 
-    let params = this.activatedRoute.snapshot.params["param"];
+    this.params = this.activatedRoute.snapshot.params["param"].split("&")[0];
 
 
     /*================================================================
          Filtramos data de las categorias
     =================================================================*/
-    this.categoriesService.getFilterData("url", params)
+    this.categoriesService.getFilterData("url", this.params)
       .subscribe(resp1 => {
 
 

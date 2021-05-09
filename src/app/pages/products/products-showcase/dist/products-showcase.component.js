@@ -21,6 +21,10 @@ var ProductsShowcaseComponent = /** @class */ (function () {
         this.rating = [];
         this.reviews = [];
         this.price = [];
+        this.params = null;
+        this.productFound = 0;
+        this.currentRoute = null;
+        this.totalPage = 0;
     }
     ProductsShowcaseComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -28,8 +32,13 @@ var ProductsShowcaseComponent = /** @class */ (function () {
         /*======================================
      Capturamos el parámetro URL
      ========================================*/
-        var params = this.activatedRoute.snapshot.params["param"];
-        this.productsService.getFilterData("category", params)
+        this.params = this.activatedRoute.snapshot.params["param"].split("&")[0];
+        this.page = this.activatedRoute.snapshot.params["param"].split("&")[1];
+        this.currentRoute = "products/" + this.params;
+        /*======================================
+       Filtramos la data de los productos con categorías
+       ========================================*/
+        this.productsService.getFilterData("category", this.params)
             .subscribe(function (resp1) {
             if (Object.keys(resp1).length > 0) {
                 var i = void 0;
@@ -41,7 +50,7 @@ var ProductsShowcaseComponent = /** @class */ (function () {
                 /*================================================================
                         Filtramos data de las Subcategorias
                    =================================================================*/
-                _this.productsService.getFilterData("sub_category", params)
+                _this.productsService.getFilterData("sub_category", _this.params)
                     .subscribe(function (resp2) {
                     var i;
                     for (i in resp2) {
@@ -62,19 +71,37 @@ var ProductsShowcaseComponent = /** @class */ (function () {
            =================================================================*/
         var i;
         var getProducts = [];
+        var total = 0;
         for (i in response) {
+            total++;
+            ;
             getProducts.push(response[i]);
         }
         /*================================================================
-                Filtramos solo hasta 6 productos
-           =================================================================*/
+          Definimos el total de productos y la paginación de productos
+        =================================================================*/
+        this.productFound = total;
+        this.totalPage = Math.ceil(Number(this.productFound) / 6);
         getProducts.forEach(function (product, index) {
-            if (index < 6) {
-                _this.products.push(product);
-                _this.rating.push(funtions_js_1.DinamicRating.fnc(_this.products[index]));
-                _this.reviews.push(funtions_js_1.DinamicReviews.fnc(_this.rating[index]));
-                _this.price.push(funtions_js_1.DinamicPrice.fnc(_this.products[index]));
-                _this.cargando = false;
+            /*================================================================
+                Evaluamos si viene número de página definida
+         =================================================================*/
+            if (_this.page == undefined) {
+                _this.page = 1;
+            }
+            /*================================================================
+                  Configuramos la paginación desde - hasta
+           =================================================================*/
+            var first = Number(index) + (_this.page * 6) - 6;
+            var last = 6 * _this.page;
+            if (first < last) {
+                if (getProducts[first] != undefined) {
+                    _this.products.push(getProducts[first]);
+                    _this.rating.push(funtions_js_1.DinamicRating.fnc(getProducts[first]));
+                    _this.reviews.push(funtions_js_1.DinamicReviews.fnc(getProducts[first]));
+                    _this.price.push(funtions_js_1.DinamicPrice.fnc(getProducts[first]));
+                    _this.cargando = false;
+                }
             }
         });
     };

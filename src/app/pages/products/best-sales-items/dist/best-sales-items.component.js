@@ -21,6 +21,7 @@ var BestSalesItemsComponent = /** @class */ (function () {
         this.reviews = [];
         this.price = [];
         this.cargando = false;
+        this.params = null;
     }
     BestSalesItemsComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -28,11 +29,11 @@ var BestSalesItemsComponent = /** @class */ (function () {
         /*======================================
      Capturamos el parámetro URL
      ========================================*/
-        var params = this.activatedRoute.snapshot.params["param"];
+        this.params = this.activatedRoute.snapshot.params["param"].split("&")[0];
         /*======================================
         Filtramos data de prouctos con categorías
         ========================================*/
-        this.productsService.getFilterData("category", params)
+        this.productsService.getFilterData("category", this.params)
             .subscribe(function (resp1) {
             if (Object.keys(resp1).length > 0) {
                 var i = void 0;
@@ -44,7 +45,7 @@ var BestSalesItemsComponent = /** @class */ (function () {
                 /*================================================================
                         Filtramos data de las Subcategorias
                    =================================================================*/
-                _this.productsService.getFilterData("sub_category", params)
+                _this.productsService.getFilterData("sub_category", _this.params)
                     .subscribe(function (resp2) {
                     var i;
                     for (i in resp2) {

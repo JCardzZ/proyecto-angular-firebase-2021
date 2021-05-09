@@ -27,6 +27,7 @@ export class BestSalesItemsComponent implements OnInit {
   reviews: Array<any> = [];
   price: Array<any> = [];
   cargando: Boolean = false;
+  params: string = null;
 
 
 
@@ -39,13 +40,13 @@ export class BestSalesItemsComponent implements OnInit {
  Capturamos el parámetro URL
  ========================================*/
 
-    let params = this.activatedRoute.snapshot.params["param"];
+ this.params = this.activatedRoute.snapshot.params["param"].split("&")[0];
 
     /*======================================
     Filtramos data de prouctos con categorías
     ========================================*/
 
-    this.productsService.getFilterData("category", params)
+    this.productsService.getFilterData("category", this.params)
       .subscribe(resp1 => {
 
 
@@ -62,7 +63,7 @@ export class BestSalesItemsComponent implements OnInit {
           /*================================================================
                   Filtramos data de las Subcategorias
              =================================================================*/
-          this.productsService.getFilterData("sub_category", params)
+          this.productsService.getFilterData("sub_category",this.params)
             .subscribe(resp2 => {
 
               let i;

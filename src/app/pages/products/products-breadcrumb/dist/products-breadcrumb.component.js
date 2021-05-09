@@ -14,14 +14,15 @@ var ProductsBreadcrumbComponent = /** @class */ (function () {
         this.subCategoriesService = subCategoriesService;
         this.activatedRoute = activatedRoute;
         this.breadCrumb = null;
+        this.params = null;
     }
     ProductsBreadcrumbComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var params = this.activatedRoute.snapshot.params["param"];
+        this.params = this.activatedRoute.snapshot.params["param"].split("&")[0];
         /*================================================================
              Filtramos data de las categorias
         =================================================================*/
-        this.categoriesService.getFilterData("url", params)
+        this.categoriesService.getFilterData("url", this.params)
             .subscribe(function (resp1) {
             if (Object.keys(resp1).length > 0) {
                 var i = void 0;

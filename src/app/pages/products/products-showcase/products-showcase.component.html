@@ -10,7 +10,7 @@ Products found
 
     <div class="ps-shopping__header">
 
-        <p><strong> </strong> Products found</p>
+        <p><strong>{{productFound}} </strong> Products found</p>
 
         <div class="ps-shopping__actions">
 
@@ -153,14 +153,11 @@ Products found
 
             <div class="ps-pagination">
 
-                <ul class="pagination" [attr.data-total-pages]="2" [attr.data-actual-page]="1" [attr.data-current-route]="'product/consumer-electric'">
-
-
+                <ul class="pagination" [attr.data-total-pages]="totalPage" [attr.data-actual-page]="page" [attr.data-current-route]="currentRoute">
 
                 </ul>
 
             </div>
-
 
         </div>
         <!-- End Grid View-->
@@ -236,19 +233,14 @@ Products found
 
 
             </div>
-
             <div class="ps-pagination">
 
-                <ul class="pagination">
-
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">Next Page<i class="icon-chevron-right"></i></a></li>
+                <ul class="pagination" [attr.data-total-pages]="totalPage" [attr.data-actual-page]="page" [attr.data-current-route]="currentRoute">
 
                 </ul>
 
             </div>
+
 
         </div>
 

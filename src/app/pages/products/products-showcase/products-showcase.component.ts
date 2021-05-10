@@ -5,7 +5,9 @@ import {
   DinamicRating,
   DinamicReviews,
   DinamicPrice,
-  Pagination
+  Pagination,
+  Select2Cofig,
+  Tabs
 } from '../../../funtions.js';
 
 
@@ -351,8 +353,8 @@ Función que nos avisa cuando finaliza el renderizado de Angular
 
       Rating.fnc();
       Pagination.fnc();
-      //  Select2Cofig.fnc();
-      //   Tabs.fnc();
+       Select2Cofig.fnc();
+       Tabs.fnc();
 
       /*=============================================
     Captura del Select Sort Items

@@ -240,8 +240,8 @@ var ProductsShowcaseComponent = /** @class */ (function () {
             this.render = false;
             funtions_js_1.Rating.fnc();
             funtions_js_1.Pagination.fnc();
-            //  Select2Cofig.fnc();
-            //   Tabs.fnc();
+            funtions_js_1.Select2Cofig.fnc();
+            funtions_js_1.Tabs.fnc();
             /*=============================================
           Captura del Select Sort Items
           =============================================*/

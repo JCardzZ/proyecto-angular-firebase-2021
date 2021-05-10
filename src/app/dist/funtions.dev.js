@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Pagination = exports.DinamicRating = exports.DinamicReviews = exports.DinamicPrice = exports.BackgroundImage = exports.ProgressBar = exports.Rating = exports.CountDown = exports.ProductLightbox = exports.SlickConfig = exports.CarouselNavigation = exports.OwlCarouselConfig = void 0;
+exports.Tabs = exports.Select2Cofig = exports.Pagination = exports.DinamicRating = exports.DinamicReviews = exports.DinamicPrice = exports.BackgroundImage = exports.ProgressBar = exports.Rating = exports.CountDown = exports.ProductLightbox = exports.SlickConfig = exports.CarouselNavigation = exports.OwlCarouselConfig = void 0;
 
 /*======================================
                                                                                                                                                                                                                                                                                                    OwlCarouselConfig
@@ -435,4 +435,42 @@ var Pagination = {
     }
   }
 };
+/*=============================================
+Select2Cofig
+=============================================*/
+
 exports.Pagination = Pagination;
+var Select2Cofig = {
+  fnc: function fnc() {
+    $('select.ps-select').select2({
+      placeholder: $(this).data('placeholder'),
+      minimumResultsForSearch: -1
+    });
+  }
+};
+/*=============================================
+Tabs
+=============================================*/
+
+exports.Select2Cofig = Select2Cofig;
+var Tabs = {
+  fnc: function fnc() {
+    $('.ps-tab-list  li > a ').on('click', function (e) {
+      e.preventDefault();
+      var target = $(this).attr('href');
+      $(this).closest('li').siblings('li').removeClass('active');
+      $(this).closest('li').addClass('active');
+      $(target).addClass('active');
+      $(target).siblings('.ps-tab').removeClass('active');
+    });
+    $('.ps-tab-list.owl-slider .owl-item a').on('click', function (e) {
+      e.preventDefault();
+      var target = $(this).attr('href');
+      $(this).closest('.owl-item').siblings('.owl-item').removeClass('active');
+      $(this).closest('.owl-item').addClass('active');
+      $(target).addClass('active');
+      $(target).siblings('.ps-tab').removeClass('active');
+    });
+  }
+};
+exports.Tabs = Tabs;

@@ -10,16 +10,20 @@ Products found
 
     <div class="ps-shopping__header">
 
-        <p><strong>{{productFound}} </strong> Products found</p>
+        <p><strong> {{productFound}}</strong> Products found</p>
 
         <div class="ps-shopping__actions">
 
-            <select class="ps-select sortItems" data-placeholder="Sort Items">
+            <select *ngIf="sortItems.length > 0" class="ps-select sortItems" data-placeholder="Sort Items">
 
-        <option></option>
+              <option
+              *ngFor="let item of sortItems; let i = index"
+              [value]="sortValues[i]">
+
+              {{item}}</option>
 
 
-      </select>
+          </select>
 
             <div class="ps-shopping__view">
 
@@ -110,15 +114,17 @@ Products found
                                 <div class="ps-product__content">
 
                                     <a class="ps-product__title" href="product/{{product.url}}">
-                    {{product.name}}</a>
+                                  {{product.name}}</a>
 
                                     <div class="ps-product__rating">
 
                                         <select class="ps-rating" data-read-only="true">
 
-                      <option *ngFor="let review of reviews[i]; let f = index" [value]="review">{{f+1}}</option>
+                                          <option
+                                          *ngFor="let review of reviews[i]; let f = index"
+                                      [value]="review">{{f+1}}</option>
 
-                    </select>
+                                          </select>
 
                                         <span>{{rating[i]}}</span>
 
@@ -131,7 +137,7 @@ Products found
                                 <div class="ps-product__content hover">
 
                                     <a class="ps-product__title" href="product/{{product.url}}">
-                    {{product.name}}</a>
+                                  {{product.name}}</a>
 
                                     <div [innerHTML]="price[i][0]"></div>
 
@@ -149,7 +155,6 @@ Products found
                 </div>
 
             </div>
-
 
             <div class="ps-pagination">
 
@@ -189,15 +194,17 @@ Products found
                         <div class="ps-product__content">
 
                             <a class="ps-product__title" href="product/{{product.url}}">
-                {{product.name}}</a>
+                          {{product.name}}</a>
 
                             <div class="ps-product__rating">
 
                                 <select class="ps-rating" data-read-only="true">
 
-                  <option *ngFor="let review of reviews[i]; let f = index" [value]="review">{{f+1}}</option>
+                                  <option
+                                  *ngFor="let review of reviews[i]; let f = index"
+                              [value]="review">{{f+1}}</option>
 
-                </select>
+                                  </select>
 
                                 <span>{{rating[i]}}</span>
 
@@ -227,12 +234,13 @@ Products found
                     </div>
 
 
-                    {{ lastIndex ? callback() : ""}}
+                    {{ lastIndex ? callback(params) : ""}}
                 </div>
                 <!-- End Product -->
 
 
             </div>
+
             <div class="ps-pagination">
 
                 <ul class="pagination" [attr.data-total-pages]="totalPage" [attr.data-actual-page]="page" [attr.data-current-route]="currentRoute">
@@ -241,16 +249,16 @@ Products found
 
             </div>
 
-
         </div>
 
     </div>
 
-</div>
-<!--=====================================
+    <!--=====================================
   Preload
   ======================================-->
 
-<div *ngIf=" cargando " class="d-flex justify-content-center ">
-    <div class="spinner-border text-muted my-5 "></div>
+    <div *ngIf="cargando" class="d-flex justify-content-center">
+        <div class="spinner-border text-muted my-5"></div>
+    </div>
+
 </div>

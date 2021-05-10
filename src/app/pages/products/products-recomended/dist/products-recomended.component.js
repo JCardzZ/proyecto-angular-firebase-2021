@@ -45,7 +45,7 @@ var ProductsRecomendedComponent = /** @class */ (function () {
                 /*================================================================
                         Filtramos data de las Subcategorias
                    =================================================================*/
-                _this.productsService.getFilterData("sub_category", params)
+                _this.productsService.getFilterData("sub_category", _this.params)
                     .subscribe(function (resp2) {
                     var i;
                     for (i in resp2) {

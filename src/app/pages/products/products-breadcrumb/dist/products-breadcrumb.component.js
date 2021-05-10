@@ -34,7 +34,7 @@ var ProductsBreadcrumbComponent = /** @class */ (function () {
                 /*================================================================
                         Filtramos data de las Subcategorias
                    =================================================================*/
-                _this.subCategoriesService.getFilterData("url", params)
+                _this.subCategoriesService.getFilterData("url", _this.params)
                     .subscribe(function (resp2) {
                     var i;
                     for (i in resp2) {

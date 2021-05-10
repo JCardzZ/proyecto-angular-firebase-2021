@@ -59,7 +59,7 @@ export class ProductsRecomendedComponent implements OnInit {
           /*================================================================
                   Filtramos data de las Subcategorias
              =================================================================*/
-          this.productsService.getFilterData("sub_category", params)
+          this.productsService.getFilterData("sub_category", this.params)
             .subscribe(resp2 => {
 
               let i;

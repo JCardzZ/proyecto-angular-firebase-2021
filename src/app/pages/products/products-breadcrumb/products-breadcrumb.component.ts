@@ -38,6 +38,14 @@ export class ProductsBreadcrumbComponent implements OnInit {
 
             this.breadCrumb = resp1[i].name;
 
+            let id = Object.keys(resp1).toString();
+
+            let value = {
+
+              "view": Number(resp1[i].view + 1)
+            }
+            this.categoriesService.pathData(id, value)
+            .subscribe(resp=>{});
           }
         } else {
 
@@ -52,6 +60,14 @@ export class ProductsBreadcrumbComponent implements OnInit {
               for (i in resp2) {
 
                 this.breadCrumb = resp2[i].name;
+                let id = Object.keys(resp2).toString();
+
+                let value = {
+
+                  "view": Number(resp2[i].view + 1)
+                }
+                this.subCategoriesService.pathData(id, value)
+                .subscribe(resp=>{});
 
               }
 

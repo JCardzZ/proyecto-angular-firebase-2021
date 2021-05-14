@@ -20,4 +20,8 @@ export class CategoriesService {
 		return this.http.get(`${this.api}categories.json?orderBy="${orderBy}"&equalTo="${equalTo}"&print=pretty`);
 
 	}
+  pathData(id:String,value:Object){
+		return this.http.patch(`${this.api}categories/${id}.json`, value);
+
+  }
 }

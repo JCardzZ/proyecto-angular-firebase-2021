@@ -28,6 +28,12 @@ var ProductsBreadcrumbComponent = /** @class */ (function () {
                 var i = void 0;
                 for (i in resp1) {
                     _this.breadCrumb = resp1[i].name;
+                    var id = Object.keys(resp1).toString();
+                    var value = {
+                        "view": Number(resp1[i].view + 1)
+                    };
+                    _this.categoriesService.pathData(id, value)
+                        .subscribe(function (resp) { });
                 }
             }
             else {
@@ -39,6 +45,12 @@ var ProductsBreadcrumbComponent = /** @class */ (function () {
                     var i;
                     for (i in resp2) {
                         _this.breadCrumb = resp2[i].name;
+                        var id = Object.keys(resp2).toString();
+                        var value = {
+                            "view": Number(resp2[i].view + 1)
+                        };
+                        _this.subCategoriesService.pathData(id, value)
+                            .subscribe(function (resp) { });
                     }
                 });
             }

@@ -6,28 +6,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.CategoriesService = void 0;
+exports.SubCategoriesService = void 0;
 var core_1 = require("@angular/core");
 var config_1 = require("../config");
-var CategoriesService = /** @class */ (function () {
-    function CategoriesService(http) {
+var SubCategoriesService = /** @class */ (function () {
+    function SubCategoriesService(http) {
         this.http = http;
         this.api = config_1.Api.url;
     }
-    CategoriesService.prototype.getData = function () {
-        return this.http.get(this.api + "categories.json");
+    SubCategoriesService.prototype.getFilterData = function (orderBy, equalTo) {
+        return this.http.get(this.api + "sub-categories.json?orderBy=\"" + orderBy + "\"&equalTo=\"" + equalTo + "\"&print=pretty");
     };
-    CategoriesService.prototype.getFilterData = function (orderBy, equalTo) {
-        return this.http.get(this.api + "categories.json?orderBy=\"" + orderBy + "\"&equalTo=\"" + equalTo + "\"&print=pretty");
+    SubCategoriesService.prototype.pathData = function (id, value) {
+        return this.http.patch(this.api + "sub-categories/" + id + ".json", value);
     };
-    CategoriesService.prototype.pathData = function (id, value) {
-        return this.http.patch(this.api + "categories/" + id + ".json", value);
-    };
-    CategoriesService = __decorate([
+    SubCategoriesService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         })
-    ], CategoriesService);
-    return CategoriesService;
+    ], SubCategoriesService);
+    return SubCategoriesService;
 }());
-exports.CategoriesService = CategoriesService;
+exports.SubCategoriesService = SubCategoriesService;

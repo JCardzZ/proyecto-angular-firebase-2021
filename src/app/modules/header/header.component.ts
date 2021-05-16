@@ -49,6 +49,18 @@ export class HeaderComponent implements OnInit {
   }
 
   /*======================================
+    Declaramos función del buscador
+========================================*/
+
+goSearch(search:string){
+if(search.length == 0){
+  return;
+}
+window.open(`search/${search}`, '_top')
+}
+
+
+  /*======================================
     Función que nos avisa cuando finaliza el renderizado de Angular
 ========================================*/
   callback() {

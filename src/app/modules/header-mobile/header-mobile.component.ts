@@ -21,7 +21,7 @@ export class HeaderMobileComponent implements OnInit {
   constructor(
     private categoriesService: CategoriesService,
     private subCategoriesService: SubCategoriesService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     /*======================================
@@ -56,6 +56,21 @@ export class HeaderMobileComponent implements OnInit {
     });
   }
 
+
+
+  /*======================================
+    Declaramos función del buscador
+========================================*/
+
+goSearch(search:string){
+  if(search.length == 0){
+    return;
+  }
+  window.open(`search/${search}`, '_top')
+  }
+
+
+
   /*======================================
    Función que nos avisa cuando finaliza el renderizado de Angular
     ========================================*/
@@ -88,24 +103,24 @@ export class HeaderMobileComponent implements OnInit {
                 url: resp[i].url,
               });
             }
-       /*=====================================================================================
-   Recorremos el array de objetos nuevo para buscar coincidencias con los nombres de categorias
-   =======================================================================================*/
+            /*=====================================================================================
+        Recorremos el array de objetos nuevo para buscar coincidencias con los nombres de categorias
+        =======================================================================================*/
 
-   for(i in arraySubCategories){
+            for (i in arraySubCategories) {
 
-    if(category == arraySubCategories[i].category){
+              if (category == arraySubCategories[i].category) {
 
 
-      $(`[category='${category}']`).append(
+                $(`[category='${category}']`).append(
 
-        `<li class="current-menu-item ">
+                  `<li class="current-menu-item ">
         <a href="products/${arraySubCategories[i].url}">${arraySubCategories[i].subcategory}</a>
         </li>`
-      )
+                )
 
-    }
-   }
+              }
+            }
 
           });
       });

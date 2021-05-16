@@ -5,16 +5,16 @@
 <header class="header header--standard header--market-place-4" data-sticky="true">
 
     <!--=====================================
-  Header TOP
-  ======================================-->
+      Header TOP
+      ======================================-->
 
     <div class="header__top">
 
         <div class="container">
 
             <!--=====================================
-      Social
-      ======================================-->
+          Social
+          ======================================-->
 
             <div class="header__left">
                 <ul class="d-flex justify-content-center">
@@ -26,8 +26,8 @@
             </div>
 
             <!--=====================================
-      Contact & lenguage
-      ======================================-->
+          Contact & lenguage
+          ======================================-->
 
             <div class="header__right">
                 <ul class="header__top-links">
@@ -54,8 +54,8 @@
     <!-- Header Top -->
 
     <!--=====================================
-  Header Content
-  ======================================-->
+      Header Content
+      ======================================-->
 
     <div class="header__content">
 
@@ -64,16 +64,16 @@
             <div class="header__content-left">
 
                 <!--=====================================
-        Logo
-        ======================================-->
+            Logo
+            ======================================-->
 
-                <a class="ps-logo" href="index.html">
+                <a class="ps-logo" routerLink="/">
                     <img src="{{path}}/img/template/logo_light.png" alt="">
                 </a>
 
                 <!--=====================================
-        Menú
-        ======================================-->
+            Menú
+            ======================================-->
 
                 <div class="menu--product-categories">
 
@@ -115,22 +115,15 @@
             <!-- End Header Content Left-->
 
             <!--=====================================
-      Search
-      ======================================-->
+          Search
+          ======================================-->
 
             <div class="header__content-center">
-                <form class="ps-form--quick-search" action="index.html" method="get">
-                    <div class="form-group--icon">
-                        <i class="icon-chevron-down"></i>
-                        <select class="form-control">
-                              <option value="1">All</option>
-                              <option value="1">Smartphone</option>
-                              <option value="1">Sounds</option>
-                              <option value="1">Technology toys</option>
-                          </select>
-                    </div>
-                    <input class="form-control" type="text" placeholder="Estoy comprando para...">
-                    <button>Búsqueda</button>
+                <form class="ps-form--quick-search" >
+            
+                    <input (keyup.enter)="goSearch(search.value)"
+                    #search  class="form-control" type="text" placeholder="I'm shopping for...">
+                    <button type="button" (click)="goSearch(search.value)">Search</button>
                 </form>
             </div>
 
@@ -139,16 +132,16 @@
                 <div class="header__actions">
 
                     <!--=====================================
-          Wishlist
-          ======================================-->
+              Wishlist
+              ======================================-->
 
                     <a class="header__extra" href="#">
                         <i class="icon-heart"></i><span><i>0</i></span>
                     </a>
 
                     <!--=====================================
-          Cart
-          ======================================-->
+              Cart
+              ======================================-->
 
                     <div class="ps-cart--mini">
 
@@ -215,8 +208,8 @@
                     </div>
 
                     <!--=====================================
-          Login and Register
-          ======================================-->
+              Login and Register
+              ======================================-->
 
                     <div class="ps-block--user-header">
                         <div class="ps-block__left">

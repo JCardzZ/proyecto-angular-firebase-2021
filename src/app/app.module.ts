@@ -24,6 +24,7 @@ import { ProductsBreadcrumbComponent } from './pages/products/products-breadcrum
 import { BestSalesItemsComponent } from './pages/products/best-sales-items/best-sales-items.component';
 import { ProductsRecomendedComponent } from './pages/products/products-recomended/products-recomended.component';
 import { ProductsShowcaseComponent } from './pages/products/products-showcase/products-showcase.component';
+import { SearchBreadcrumComponent } from './pages/search/search-breadcrum/search-breadcrum.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ProductsShowcaseComponent } from './pages/products/products-showcase/pr
     ProductsBreadcrumbComponent,
     BestSalesItemsComponent,
     ProductsRecomendedComponent,
-    ProductsShowcaseComponent
+    ProductsShowcaseComponent,
+    SearchBreadcrumComponent
   ],
   imports: [
     BrowserModule,

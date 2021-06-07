@@ -3,6 +3,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 
 import { Path } from '../../config';
+import { Search } from  '../../funtions'
 
 import { CategoriesService } from '../../services/categories.service';
 
@@ -52,12 +53,12 @@ export class HeaderComponent implements OnInit {
     Declaramos función del buscador
 ========================================*/
 
-goSearch(search:string){
-if(search.length == 0){
-  return;
-}
-window.open(`search/${search}`, '_top')
-}
+  goSearch(search: string) {
+    if (search.length == 0 || Search.fnc(search) == undefined) {
+      return;
+    }
+    window.open(`search/${Search.fnc(search)}`, '_top')
+  }
 
 
   /*======================================
@@ -80,7 +81,7 @@ window.open(`search/${search}`, '_top')
         //  console.log('titleList', titleList);
 
 
-        for (let i = 0; i < titleList.length; i++){
+        for (let i = 0; i < titleList.length; i++) {
 
 
           /*============================================================================
@@ -112,7 +113,7 @@ window.open(`search/${search}`, '_top')
                   arrayTitleName.push({
                     titleList: arraySubCategories[f][g].title_list,
                     subcategory: arraySubCategories[f][g].name,
-                    "url":arraySubCategories[f][g].url
+                    "url": arraySubCategories[f][g].url
                   });
                 }
 
@@ -129,22 +130,22 @@ window.open(`search/${search}`, '_top')
                   //console.log("arrayTitleName[f].subcategory", arrayTitleName[f].subcategory);
                   //console.log("titleList[i]", titleList[i]);
 
-              /*=======================================================================================
-              Imprimir el nombre de subcategoria debajo de el listado correspondiente
-              =========================================================================================*/
+                  /*=======================================================================================
+                  Imprimir el nombre de subcategoria debajo de el listado correspondiente
+                  =========================================================================================*/
 
-              $(`[titleList='${titleList[i]}']`).append(
+                  $(`[titleList='${titleList[i]}']`).append(
 
-                `<li>
+                    `<li>
                 <a href="products/${arrayTitleName[f].url}">${arrayTitleName[f].subcategory}</a>
                 </li>`
-              )
+                  )
 
                 }
 
               }
 
-            //  console.log("arrayTitleName", arrayTitleName);
+              //  console.log("arrayTitleName", arrayTitleName);
 
               //console.log('resp', resp);
             });

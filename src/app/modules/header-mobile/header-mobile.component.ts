@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Path } from '../../config';
+//import { Search } from '../../functions';
+import { Search } from  '../../funtions'
 
 declare var jQuery: any;
 declare var $: any;
@@ -62,12 +64,12 @@ export class HeaderMobileComponent implements OnInit {
     Declaramos función del buscador
 ========================================*/
 
-goSearch(search:string){
-  if(search.length == 0){
+goSearch(search: string) {
+  if (search.length == 0 || Search.fnc(search) == undefined) {
     return;
   }
-  window.open(`search/${search}`, '_top')
-  }
+  window.open(`search/${Search.fnc(search)}`, '_top')
+}
 
 
 

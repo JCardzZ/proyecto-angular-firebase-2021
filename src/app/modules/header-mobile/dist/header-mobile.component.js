@@ -9,6 +9,8 @@ exports.__esModule = true;
 exports.HeaderMobileComponent = void 0;
 var core_1 = require("@angular/core");
 var config_1 = require("../../config");
+//import { Search } from '../../functions';
+var funtions_1 = require("../../funtions");
 var HeaderMobileComponent = /** @class */ (function () {
     function HeaderMobileComponent(categoriesService, subCategoriesService) {
         this.categoriesService = categoriesService;
@@ -48,10 +50,10 @@ var HeaderMobileComponent = /** @class */ (function () {
       Declaramos función del buscador
   ========================================*/
     HeaderMobileComponent.prototype.goSearch = function (search) {
-        if (search.length == 0) {
+        if (search.length == 0 || funtions_1.Search.fnc(search) == undefined) {
             return;
         }
-        window.open("search/" + search, '_top');
+        window.open("search/" + funtions_1.Search.fnc(search), '_top');
     };
     /*======================================
      Función que nos avisa cuando finaliza el renderizado de Angular

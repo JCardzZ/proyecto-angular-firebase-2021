@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Tabs = exports.Select2Cofig = exports.Pagination = exports.DinamicRating = exports.DinamicReviews = exports.DinamicPrice = exports.BackgroundImage = exports.ProgressBar = exports.Rating = exports.CountDown = exports.ProductLightbox = exports.SlickConfig = exports.CarouselNavigation = exports.OwlCarouselConfig = void 0;
+exports.Tabs = exports.Search = exports.Select2Cofig = exports.Pagination = exports.DinamicRating = exports.DinamicReviews = exports.DinamicPrice = exports.BackgroundImage = exports.ProgressBar = exports.Rating = exports.CountDown = exports.ProductLightbox = exports.SlickConfig = exports.CarouselNavigation = exports.OwlCarouselConfig = void 0;
 
 /*======================================
                                                                                                                                                                                                                                                                                                    OwlCarouselConfig
@@ -449,10 +449,32 @@ var Select2Cofig = {
   }
 };
 /*=============================================
-Tabs
+Search
 =============================================*/
 
 exports.Select2Cofig = Select2Cofig;
+var Search = {
+  fnc: function fnc(response) {
+    var search = response.toLowerCase();
+    var match = /^[a-z0-9ñÑáéíóú ]*$/;
+
+    if (match.test(search)) {
+      var searchTest = search.replace(/[ ]/g, "_");
+      searchTest = searchTest.replace(/[ñ]/g, "n");
+      searchTest = searchTest.replace(/[á]/g, "a");
+      searchTest = searchTest.replace(/[é]/g, "e");
+      searchTest = searchTest.replace(/[í]/g, "i");
+      searchTest = searchTest.replace(/[ó]/g, "o");
+      searchTest = searchTest.replace(/[ú]/g, "u");
+      return searchTest;
+    }
+  }
+};
+/*=============================================
+Tabs
+=============================================*/
+
+exports.Search = Search;
 var Tabs = {
   fnc: function fnc() {
     $('.ps-tab-list  li > a ').on('click', function (e) {
